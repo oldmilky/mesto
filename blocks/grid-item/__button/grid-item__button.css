@@ -1,0 +1,9 @@
+.grid-item__button {
+    width: 25px;
+    height: 25px;
+    background-image: url(/images/heart.png);
+    background-position: center;
+    background-repeat: no-repeat;
+    background-color: #FFFFFF;
+    border: none;
+}
