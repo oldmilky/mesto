@@ -4,11 +4,14 @@
     background-color: #000;
     outline: none;
     cursor: pointer;
-    background-image: url(/images/add-button.png);
+    background-image: url(../../../images/add-Button.svg);
     background-position: center;
     background-repeat: no-repeat;
     border: 2px solid #FFFFFF;
 }
+.profile__add-button:hover {
+    opacity: 0.6;
+  }
 @media screen and (max-width: 576px) {
     .profile__add-button {
         width: 282px;
