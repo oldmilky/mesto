@@ -1,6 +1,5 @@
 @import url('../vendor/normalize.css');
 @import url('../fonts/fonts.css');
-@import url('../blocks/content/content.css');
 @import url('../blocks/container/container.css');
 @import url('../blocks/page/page.css');
 /* Header */
@@ -29,7 +28,7 @@
 /* Popup */
 @import url('../blocks/popup/popup.css');
 @import url('../blocks/popup/__title/popup__title.css');
-@import url('../blocks/popup/__opened/popup_opened.css');
+@import url('../blocks/popup/_opened/popup_opened.css');
 @import url('../blocks/popup/__input/popup__input.css');
 @import url('../blocks/popup/__input/_name/popup__input_name_name.css');
 @import url('../blocks/popup/__input/_name/popup__input_name_profession.css');

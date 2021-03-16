@@ -11,5 +11,6 @@
     opacity: 0.5;
 }
 .grid-item__button:active {
-    background: #000000;
+    background-image: url(../../../images/heart2.svg);
+    opacity: none;
 }

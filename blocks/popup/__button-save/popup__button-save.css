@@ -5,7 +5,7 @@
     background-color: #000;
     cursor: pointer;
     border: none;
-    font-family: Inter;
+    font-family: 'Inter', 'Arial', 'Helvetica', sans-serif;
     font-style: normal;
     font-weight: normal;
     font-size: 18px;
@@ -14,18 +14,14 @@
     margin-bottom: 37px;
     margin-left: auto;
     margin-right: auto;
+    border-radius: 5px;
 }
 .popup__button-save:hover {
   opacity: 0.8;
 }
 @media screen and (max-width: 500px) {
     .popup__button-save {
-      width: 240px;
-    }
-  }
-  
-  @media screen and (max-width: 400px) {
-    .popup__button-save {
-      width: 220px;
+      width: 238px;
+      margin-bottom: 25px;
     }
   }

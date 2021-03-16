@@ -2,13 +2,8 @@
     margin: 45px auto 0;
     border-bottom: 1px solid rgba(84, 84, 84, .7);
 }
-@media screen and (max-width: 867px) {
-    .header {
-        margin: 28px auto 27px;
-    }
-}
 @media screen and (max-width: 576px) {
     .header {
-        margin: 28px auto 27px;
+      margin: 28px 0 0;
     }
-}
+  }

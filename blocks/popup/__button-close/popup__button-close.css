@@ -8,27 +8,18 @@
     border: none;
     outline: none;
     cursor: pointer;
-    position: relative;
-    top: -180px;
-    left: 230px;
+    position: absolute;
+    top: -40px;
+    right: -40px;
 }
 .popup__button-close:hover {
   opacity: 0.6;
 }
 @media screen and (max-width: 500px) {
     .popup__button-close {
-      width: 30px;
-      height: 30px;
-      top: -180px;
-      left: 190px;
-    }
-  }
-  
-  @media screen and (max-width: 400px) {
-    .popup__button-close {
-      width: 20px;
-      height: 20px;
-      top: -175px;
-      left: 140px;
+      width: 26px;
+      height: 26px;
+      top: -45px;
+      right: 6px;
     }
   }
