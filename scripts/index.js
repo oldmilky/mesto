@@ -16,17 +16,16 @@ function openPopup() { 
 function closePopup() { 
     popup.classList.remove('popup_opened'); 
 } 
-//Обработчик открытия 
-popupButton.addEventListener('click', openPopup);
 // Функция для изначального заполнения значений полей формы
 let fillValueForm = () => { 
     popupName.value = profileName.textContent;
     popupJob.value = profileJob.textContent;
     openPopup(); 
 }
-popupButton.addEventListener('click', fillValueForm);
+//Обработчик открытия / заполнения
+popupButton.addEventListener('click', fillValueForm, openPopup);
 //Закрытия попапа по клике на крестик 
-popupButtonClose.addEventListener('click', closePopup); 
+popupButtonClose.addEventListener('click', closePopup);
 // Обработчик формы 
 function formSubmitHandler(event) { 
     event.preventDefault(); 
@@ -35,4 +34,4 @@ function formSubmitHandler(event) { 
     closePopup(); 
 } 
 // Кнопка сохранить, закрывающий попап 
-popupForm.addEventListener('submit', formSubmitHandler);
+popupForm.addEventListener('submit', formSubmitHandler); 
