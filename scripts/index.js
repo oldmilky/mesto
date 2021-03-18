@@ -8,30 +8,28 @@ let popupForm = popup.querySelector('.popup__form');
 let popupName = document.querySelector('.popup__input_name_name');
 let popupJob = document.querySelector('.popup__input_name_profession');
 
-// Событие открытия попапа 
-function openPopup() { 
-    popup.classList.add('popup_opened'); 
-} 
-// Событие зыкрытия попапа 
-function closePopup() { 
-    popup.classList.remove('popup_opened'); 
-} 
 // Функция для изначального заполнения значений полей формы
-let fillValueForm = () => { 
+let openPopup = () => {
     popupName.value = profileName.textContent;
     popupJob.value = profileJob.textContent;
-    openPopup(); 
+    popup.classList.add('popup_opened');
 }
-//Обработчик открытия / заполнения
-popupButton.addEventListener('click', fillValueForm, openPopup);
-//Закрытия попапа по клике на крестик 
+
+// Событие зыкрытия попапа
+function closePopup() {
+    popup.classList.remove('popup_opened');
+}
+
+//Обработчик открытия / закрытия
+popupButton.addEventListener('click', openPopup);
 popupButtonClose.addEventListener('click', closePopup);
-// Обработчик формы 
-function formSubmitHandler(event) { 
-    event.preventDefault(); 
-    profileName.textContent = popupName.value; 
-    profileJob.textContent = popupJob.value; 
-    closePopup(); 
-} 
-// Кнопка сохранить, закрывающий попап 
-popupForm.addEventListener('submit', formSubmitHandler); 
+
+// Обработчик формы
+function formSubmitHandler(event) {
+    event.preventDefault();
+    profileName.textContent = popupName.value;
+    profileJob.textContent = popupJob.value;
+    closePopup();
+}
+// Кнопка сохранить, закрывающий попап
+popupForm.addEventListener('submit', formSubmitHandler);
