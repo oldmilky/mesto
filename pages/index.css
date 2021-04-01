@@ -21,7 +21,6 @@
 @import url('../blocks/grid-item/__wrap/grid-item__wrap.css');
 @import url('../blocks/grid-item/__photo/grid-item__photo.css');
 @import url('../blocks/grid-item/__name/grid-item__name.css');
-@import url('../blocks/grid-item/__button/grid-item__button.css');
 @import url('../blocks/grid-item/__like/grid-item__like.css');
 @import url('../blocks/grid-item/__like/_liked/grid-item__like_liked.css');
 @import url('../blocks/grid-item/__delete-icon/grid-item__delete-icon.css');
@@ -39,4 +38,3 @@
 @import url('../blocks/popup/__button-close/popup__button-close.css');
 @import url('../blocks/popup/__wrap/popup__wrap.css');
 @import url('../blocks/popup/__image/popup__image.css');
-@import url('../blocks/popup/__title-image/popup__title-image.css');
