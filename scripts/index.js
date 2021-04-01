@@ -132,8 +132,8 @@ const formSubmitAddHandler = (event) => {
 
     AddImage.addEventListener('click', function () {
       openPopup(popupFullImage);
-      popupFullImageImage.src = AddImage.src;
-      popupFullImageTitle.textContent = AddImage.alt;
+      popupFullImageImage.src = linkCardSubmit;
+      popupFullImageTitle.textContent = titleCardSubmit;
     });
 
   templateCardTitle.textContent = titleCardSubmit;
