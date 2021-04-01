@@ -67,28 +67,28 @@ popupForm.addEventListener('submit', formSubmitHandler);
 // Генерация первых 6 карточек
 const initialCards = [
     {
-      name: 'Программый код',
-      link: './images/kod.jpg'
+      name: 'Liberty Park',
+      link: './images/liberty-park.jpg'
     },
     {
-      name: 'Решение ошибок',
-      link: './images/office.jpg'
+      name: 'City Streets',
+      link: './images/city-streets.jpg'
     },
     {
-      name: 'Языки программирования',
-      link: './images/jshtmlcss.png'
+      name: 'Extraordinary roads',
+      link: './images/roads.jpg'
     },
     {
-      name: 'Написание кода',
-      link: './images/office2.jpg'
+      name: 'New York',
+      link: './images/new-york.jpg'
     },
     {
-      name: 'GitHub',
-      link: './images/git.png'
+      name: 'Crimson Light',
+      link: './images/crimson-light.jpg'
     },
     {
-      name: 'Установка целей',
-      link: './images/people.png'
+      name: 'Gray Days',
+      link: './images/gray-days.jpg'
     }
   ];
 
@@ -138,14 +138,12 @@ const formSubmitAddHandler = (event) => {
 
   templateCardTitle.textContent = titleCardSubmit;
   templateCardImage.src = linkCardSubmit;
-  photoCard.append(templateCardElement);
+  photoCard.prepend(templateCardElement);
   }
-
   
   
   // Обработчик формы добавления карточки
   popupAddForm.addEventListener('submit', formSubmitAddHandler);
-  popup
   
   // Генерация
   const initialTemplate = initialCards.forEach(item => {

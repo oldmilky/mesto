@@ -5,8 +5,9 @@
     column-gap: 18px;
     max-width: 900px;
     margin: 0 auto;
-    padding-top: 50px;
+    padding: 50px 0 0;
     justify-content: center;
+    align-items: center;
 }
 @media screen and (max-width: 896px) {
     .grid-places {
