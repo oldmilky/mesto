@@ -1,0 +1,11 @@
+.grid-item__like {
+  fill: #fff;
+  stroke: #000;
+  transition: .2s linear;
+  flex: none;
+}
+
+.grid-item__like:hover {
+  opacity: .6;
+  cursor: pointer;
+}

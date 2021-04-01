@@ -6,14 +6,14 @@
   <link rel="stylesheet" href="./pages/index.css">
   <title>Mesto</title>
 </head>
-
+<!-- Page -->
 <body class="container">
   <div class="page">
-
+<!-- Header -->
     <header class="header">
       <img class="header__logo" src="./images/logo.svg" alt="Лого Место">
     </header>
-
+<!-- Profile -->
     <main class="content">
       <section class="profile">
         <div class="profile__container">
@@ -28,69 +28,61 @@
         </div>
         <button type="button" class="profile__add-button"></button>
       </section>
-
-      <section class="grid-places">
-        <article class="grid-item">
-          <img class="grid-item__photo" src="images/kod.jpg" alt="kod">
-          <div class="grid-item__wrap">
-            <h2 class="grid-item__name">Программный код</h2>
-            <button type="button" class="grid-item__button"></button>
-          </div>
-        </article>
-        <article class="grid-item">
-          <img class="grid-item__photo" src="images/office.jpg" alt="Оффис">
-          <div class="grid-item__wrap">
-            <h2 class="grid-item__name">Решение ошибок</h2>
-            <button type="button" class="grid-item__button"></button>
-          </div>
-        </article>
-        <article class="grid-item">
-          <img class="grid-item__photo" src="images/jshtmlcss.png" alt="Языки">
-          <div class="grid-item__wrap">
-            <h2 class="grid-item__name">Языки программирования</h2>
-            <button type="button" class="grid-item__button"></button>
-          </div>
-        </article>
-        <article class="grid-item">
-          <img class="grid-item__photo" src="images/office2.jpg" alt="Оффис2">
-          <div class="grid-item__wrap">
-            <h2 class="grid-item__name">Написание кода</h2>
-            <button type="button" class="grid-item__button"></button>
-          </div>
-        </article>
-        <article class="grid-item">
-          <img class="grid-item__photo" src="images/git.png" alt="Гит">
-          <div class="grid-item__wrap">
-            <h2 class="grid-item__name">GitHub</h2>
-            <button type="button" class="grid-item__button"></button>
-          </div>
-        </article>
-        <article class="grid-item">
-          <img class="grid-item__photo" src="images/people.png" alt="People">
-          <div class="grid-item__wrap">
-            <h2 class="grid-item__name">Установка целей</h2>
-            <button type="button" class="grid-item__button"></button>
-          </div>
-        </article>
+<!-- Photos -->
+      <section class="photos">
+        <ul class="grid-places"></ul>
       </section>
     </main>
-
+<!-- Footer -->
     <footer class="footer">
       <p class="footer__text">&copy; 2021. Родион Стрелков</p>
     </footer>
   </div>
-  
-  <div id="popup" class="popup">
+  <!-- Попап редактирования -->
+  <div id="popup" class="popup popup_type_edit">
     <div class="popup__container">
       <h2 class="popup__title">Редактировать профиль</h2>
       <form class="popup__form" name="edit-Profile">
-        <input type="text" class="popup__input popup__input_name_name" name="name">
-        <input type="text" class="popup__input popup__input_name_profession" name="profession">
+        <input type="text" placeholder="Введите ваше имя" class="popup__input popup__input_name_name" name="name" required>
+        <input type="text" placeholder="Введите вашу деятельность" class="popup__input popup__input_name_profession" name="profession" required>
         <input type="submit" class="popup__button-save" value="Сохранить" name="submit">
       </form>
       <button type="button" class="popup__button-close"></button>
     </div>
   </div>
+<!-- Попап добавления -->
+  <div id="popupAdd" class="popup popup_type_add">
+    <div class="popup__container">
+      <h2 class="popup__title">Новое место</h2>
+      <form class="popup__form" name="add-Card" >
+        <input type="text" placeholder="Название" class="popup__input popup__input_name_title-card" name="name" required>
+        <input type="text" placeholder="Ссылка на картинку" class="popup__input popup__input_name_link-card" name="profession" required>
+        <input type="submit" class="popup__button-save" value="Создать" name="submit">
+      </form>
+      <button type="button" class="popup__button-close"></button>
+    </div>
+  </div>
+<!-- Попап картинки -->
+<div class="popup popup_type_image">
+  <div class="popup__wrap">
+    <img src="" alt="" class="popup__image">
+    <p class="popup__title-image"></p>
+    <button type="button" class="popup__button-close"></button>
+  </div>
+</div>
+<!-- Template -->
+<template id="grid-template">
+  <li class="grid-item">
+    <img src="./images/delete-icon.svg" alt="" class="grid-item__delete-icon">
+    <img src="" alt="" class="grid-item__photo">
+    <div class="grid-item__wrap">
+      <h3 class="grid-item__name"></h3>
+      <svg class='grid-item__like' width="21" height="19" viewBox="0 0 21 19" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path  d="M19.154 9.33822C21.294 7.19832 21.294 3.72364 19.154 1.60492C17.014 -0.534975 13.5392 -0.534975 11.3992 1.60492L10.361 2.66428L9.32276 1.62611C7.18277 -0.534975 3.70792 -0.534975 1.58911 1.60492C0.550891 2.64309 0 4.02026 0 5.48217C0 6.94408 0.572079 8.32124 1.58911 9.35941L10.361 18.1309L19.154 9.33822Z" />
+      </svg>
+    </div>
+  </li>
+</template>
 
   <script src="./scripts/index.js"></script>
 </body>
