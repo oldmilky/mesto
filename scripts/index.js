@@ -1,5 +1,6 @@
 // Переменные редактирования профиля
-const popup = document.querySelector('.popup');
+const popupEdit = document.querySelector('.popup');
+const popupEditWrap = document.querySelector('.popup_type_edit');
 const popupButton = document.querySelector('.profile__edit-button');
 const popupButtonClose = document.querySelector('.popup__button-close');
 const profileName = document.querySelector('.profile__name');
@@ -16,44 +17,51 @@ const popupAddForm = popupAdd.querySelector('.popup__form');
 
 // Попап картинки при нажатии
 const popupFullImage = document.querySelector('.popup_type_image');
-const popupFullPhoto = document.querySelectorAll('.grid-item__image');
 const popupFullImageImage = popupFullImage.querySelector('.popup__image');
 const popupFullImageTitle = popupFullImage.querySelector('.popup__title-image');
 const popupFullImageClose = popupFullImage.querySelector('.popup__button-close');
 
 // Обработчик изначального заполнения значений полей формы / открытие попапа редактирования
-const openPopup = (event) => {
-    popupName.value = profileName.textContent;
-    popupJob.value = profileJob.textContent;
-    event.classList.add('popup_opened');
+const openPopup = (popup) => {
+    popup.classList.add('popup_opened');
 }
 
 // Событие зыкрытия попапа
 function closePopup() {
-    popup.classList.remove('popup_opened');
+    popupEdit.classList.remove('popup_opened');
     popupAdd.classList.remove('popup_opened');
-    popupFullImage.classList.remove('popup_opened');
+}
+
+function closePopupImage(popupFullImage) {
+  popupFullImage.classList.remove('popup_opened');
 }
 
 // Обработчик открытия и закрытия
 popupButton.addEventListener('click', () => {
-    openPopup(popup)
+    openPopup(popupEdit)
 });
 popupAddButton.addEventListener('click', () => {
     openPopup(popupAdd)
 });
 
 popupButtonClose.addEventListener('click', () => {
-    closePopup(popup)
+    closePopup(popupEdit)
 });
 popupAddButtonClose.addEventListener('click', () => {
     closePopup(popupAdd)
 });
 popupFullImageClose.addEventListener('click', () => {
-  closePopup(popupFullImage);
+  closePopupImage(popupFullImage);
 })
 
-// Обработчик формы
+//При открытии заполняем форму редактирования профиля текущими значениями
+popupButton.addEventListener('click', function() {
+  openPopup(popupEditWrap);
+  popupName.value = profileName.textContent;
+  popupJob.value = profileJob.textContent;
+});
+
+// Обработчик формы / автоматическое заполнение формы
 function formSubmitHandler(event) {
     event.preventDefault();
     profileName.textContent = popupName.value;
@@ -106,13 +114,13 @@ const formSubmitAddHandler = (event) => {
   event.preventDefault();
   const titleCardSubmit = titleCardInput.value;
   const linkCardSubmit = linkCardInput.value;
-  renderCard(titleCardSubmit, linkCardSubmit);
+  renderCard(createCard(titleCardSubmit, linkCardSubmit));
   closePopup();
   popupAddForm.reset(); // очищение поля формы для след. добавления
   }
   
   // Рендеринг
-  function renderCard(titleCardSubmit, linkCardSubmit) {
+  function createCard(titleCardSubmit, linkCardSubmit) {
   const templateCard = document.querySelector('#grid-template').content.querySelector('.grid-item');
   const templateCardElement = templateCard.cloneNode(true);
   const templateCardTitle = templateCardElement.querySelector('.grid-item__name');
@@ -135,18 +143,22 @@ const formSubmitAddHandler = (event) => {
       popupFullImageImage.src = linkCardSubmit;
       popupFullImageTitle.textContent = titleCardSubmit;
     });
-
-  templateCardTitle.textContent = titleCardSubmit;
-  templateCardImage.src = linkCardSubmit;
-  photoCard.prepend(templateCardElement);
+    templateCardTitle.textContent = titleCardSubmit;
+    templateCardImage.src = linkCardSubmit;
+    templateCardImage.alt = linkCardSubmit;
+    return templateCardElement;
   }
-  
-  
+
+  // Рендеринг
+  function renderCard(card) {
+    photoCard.prepend(card);
+  }
+
   // Обработчик формы добавления карточки
   popupAddForm.addEventListener('submit', formSubmitAddHandler);
   
   // Генерация
   const initialTemplate = initialCards.forEach(item => {
-  renderCard(item.name, item.link);
+  renderCard(createCard(item.name, item.link));
   });
 
