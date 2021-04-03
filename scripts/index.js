@@ -1,5 +1,4 @@
 // Переменные редактирования профиля
-const popupEdit = document.querySelector('.popup');
 const popupEditWrap = document.querySelector('.popup_type_edit');
 const popupButton = document.querySelector('.profile__edit-button');
 const popupButtonClose = document.querySelector('.popup__button-close');
@@ -27,31 +26,26 @@ const openPopup = (popup) => {
 }
 
 // Событие зыкрытия попапа
-function closePopup() {
-    popupEdit.classList.remove('popup_opened');
-    popupAdd.classList.remove('popup_opened');
-}
-
-function closePopupImage(popupFullImage) {
-  popupFullImage.classList.remove('popup_opened');
-}
+function closePopup(popup) {
+  popup.classList.remove('popup_opened');
+} 
 
 // Обработчик открытия и закрытия
 popupButton.addEventListener('click', () => {
-    openPopup(popupEdit)
+  openPopup(popupEditWrap)
 });
 popupAddButton.addEventListener('click', () => {
-    openPopup(popupAdd)
+  openPopup(popupAdd)
 });
 
 popupButtonClose.addEventListener('click', () => {
-    closePopup(popupEdit)
+  closePopup(popupEditWrap)
 });
 popupAddButtonClose.addEventListener('click', () => {
-    closePopup(popupAdd)
+  closePopup(popupAdd);
 });
 popupFullImageClose.addEventListener('click', () => {
-  closePopupImage(popupFullImage);
+  closePopup(popupFullImage);
 })
 
 //При открытии заполняем форму редактирования профиля текущими значениями
@@ -66,7 +60,7 @@ function formSubmitHandler(event) {
     event.preventDefault();
     profileName.textContent = popupName.value;
     profileJob.textContent = popupJob.value;
-    closePopup();
+    closePopup(popup);
 }
 
 // Кнопка сохранить, закрывающий попап
@@ -115,7 +109,7 @@ const formSubmitAddHandler = (event) => {
   const titleCardSubmit = titleCardInput.value;
   const linkCardSubmit = linkCardInput.value;
   renderCard(createCard(titleCardSubmit, linkCardSubmit));
-  closePopup();
+  closePopup(popupAdd);
   popupAddForm.reset(); // очищение поля формы для след. добавления
   }
   
