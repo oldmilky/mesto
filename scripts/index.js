@@ -23,12 +23,24 @@ const popupFullImageClose = popupFullImage.querySelector('.popup__button-close')
 // Обработчик изначального заполнения значений полей формы / открытие попапа редактирования
 const openPopup = (popup) => {
     popup.classList.add('popup_opened');
+    popup.parentNode.addEventListener('keydown', closePopupEscKey);
+}
+
+// Функция закрытия попапа по нажатию ESC
+function closePopupEscKey(evt) {
+  if (evt.key === "Escape") {
+    // document.querySelector('.popup_opened').parentNode.removeEventListener('keydown', closePopupEscKey);
+    // closePopup(popup);
+    const openedPopup = document.querySelector('.popup_opened');
+    openedPopup.parentNode.removeEventListener('keydown', closePopupEscKey);
+    closePopup(openedPopup);
+  }
 }
 
 // Событие зыкрытия попапа
 function closePopup(popup) {
   popup.classList.remove('popup_opened');
-} 
+}
 
 // Обработчик открытия и закрытия
 popupButton.addEventListener('click', () => {
@@ -47,6 +59,16 @@ popupAddButtonClose.addEventListener('click', () => {
 popupFullImageClose.addEventListener('click', () => {
   closePopup(popupFullImage);
 })
+
+// Закрытие попапа по клике на оверлей
+const closePopupOverlay = popup => event => {
+  if (event.target !== event.currentTarget) return;
+  closePopup(popup);
+}
+
+popupEditWrap.addEventListener('click', closePopupOverlay(popupEditWrap));
+popupAdd.addEventListener('click', closePopupOverlay(popupAdd));
+popupFullImage.addEventListener('click', closePopupOverlay(popupFullImage));
 
 //При открытии заполняем форму редактирования профиля текущими значениями
 popupButton.addEventListener('click', function() {
