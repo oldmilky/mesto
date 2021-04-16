@@ -27,12 +27,9 @@ const openPopup = (popup) => {
 }
 
 // Функция закрытия попапа по нажатию ESC
-function closePopupEscKey(evt) {
+const closePopupEscKey = (evt) => {
   if (evt.key === "Escape") {
-    // document.querySelector('.popup_opened').parentNode.removeEventListener('keydown', closePopupEscKey);
-    // closePopup(popup);
     const openedPopup = document.querySelector('.popup_opened');
-    openedPopup.parentNode.removeEventListener('keydown', closePopupEscKey);
     closePopup(openedPopup);
   }
 }
@@ -40,6 +37,7 @@ function closePopupEscKey(evt) {
 // Событие зыкрытия попапа
 function closePopup(popup) {
   popup.classList.remove('popup_opened');
+  openedPopup.parentNode.removeEventListener('keydown', closePopupEscKey);
 }
 
 // Обработчик открытия и закрытия
@@ -141,20 +139,20 @@ const formSubmitAddHandler = (event) => {
   const templateCardElement = templateCard.cloneNode(true);
   const templateCardTitle = templateCardElement.querySelector('.grid-item__name');
   const templateCardImage = templateCardElement.querySelector('.grid-item__photo');
-  const AddlikeButton = templateCardElement.querySelector('.grid-item__like');
-  const AddImage = templateCardElement.querySelector('.grid-item__photo');
-  const AddDeleteIcon = templateCardElement.querySelector('.grid-item__delete-icon');
+  const addLikeButton = templateCardElement.querySelector('.grid-item__like');
+  const addImage = templateCardElement.querySelector('.grid-item__photo');
+  const addDeleteIcon = templateCardElement.querySelector('.grid-item__delete-icon');
 
   //Слушатели
-    AddlikeButton.addEventListener('click', function() {
-      AddlikeButton.classList.toggle('grid-item__like_liked');
+      addLikeButton.addEventListener('click', function() {
+      addLikeButton.classList.toggle('grid-item__like_liked');
     })
 
-    AddDeleteIcon.addEventListener('click', function() {
-      AddDeleteIcon.closest('.grid-item').remove();
+    addDeleteIcon.addEventListener('click', function() {
+      addDeleteIcon.closest('.grid-item').remove();
     })
 
-    AddImage.addEventListener('click', function () {
+    addImage.addEventListener('click', function () {
       openPopup(popupFullImage);
       popupFullImageImage.src = linkCardSubmit;
       popupFullImageTitle.textContent = titleCardSubmit;
