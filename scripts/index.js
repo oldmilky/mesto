@@ -11,12 +11,14 @@ const profileJob = document.querySelector('.profile__information');
 const popupForm = popup.querySelector('.popup__form');
 const popupName = document.querySelector('.popup__input_name_name');
 const popupJob = document.querySelector('.popup__input_name_profession');
+const popupEditSaveButton = popupEditWrap.querySelector('.popup__button-save');
 
 // Переменные добавляния карточки
 const popupAdd = document.querySelector('.popup_type_add');
 const popupAddButton = document.querySelector('.profile__add-button');
 const popupAddButtonClose = popupAdd.querySelector('.popup__button-close');
 const popupAddForm = popupAdd.querySelector('.popup__form');
+const popupAddSaveButton = popupAdd.querySelector('.popup__button-save');
 
 // Попап картинки при нажатии
 const popupFullImage = document.querySelector('.popup_type_image');
@@ -24,10 +26,11 @@ const popupFullImageImage = popupFullImage.querySelector('.popup__image');
 const popupFullImageTitle = popupFullImage.querySelector('.popup__title-image');
 const popupFullImageClose = popupFullImage.querySelector('.popup__button-close');
 
+
 // Обработчик изначального заполнения значений полей формы / открытие попапа редактирования
 const openPopup = (popup) => {
     popup.classList.add('popup_opened');
-    popup.parentNode.addEventListener('keydown', closePopupEscKey);
+    document.addEventListener('keydown', closePopupEscKey);
 }
 
 // Функция закрытия попапа по нажатию ESC
@@ -40,9 +43,8 @@ const closePopupEscKey = (evt) => {
 
 // Событие зыкрытия попапа
 function closePopup(popup) {
-  const openedPopup = document.querySelector('.popup_opened');
   popup.classList.remove('popup_opened');
-  openedPopup.parentNode.removeEventListener('keydown', closePopupEscKey);
+  document.removeEventListener('keydown', closePopupEscKey);
 }
 
 // Обработчик открытия и закрытия
@@ -86,6 +88,8 @@ function formSubmitHandler(event) {
     profileName.textContent = popupName.value;
     profileJob.textContent = popupJob.value;
     closePopup(popup);
+    popupEditSaveButton.setAttribute('disabled', true);
+    popupEditSaveButton.classList.add(settingsForm.inactiveButtonClass);
 }
 
 // Кнопка сохранить, закрывающий попап
@@ -135,6 +139,8 @@ const formSubmitAddHandler = (event) => {
   renderCard(card.getCard());
   closePopup(popupAdd);
   popupAddForm.reset(); // очищение поля формы для след. добавления
+  popupAddSaveButton.setAttribute('disabled', true);
+  popupAddSaveButton.classList.add(settingsForm.inactiveButtonClass);
   }
 
   // Рендеринг
@@ -148,7 +154,7 @@ const formSubmitAddHandler = (event) => {
   // Генерация
   initialCards.forEach(item => {
     const card = new Card(item, '#grid-template')
-    renderCard(card.getCard());
+    renderCard(card.getCard()); 
   });
 
   // Включаем валидацию формы редактрования профиля

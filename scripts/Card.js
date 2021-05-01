@@ -18,6 +18,7 @@ export default class Card {
     openPopup(popupFullImage);
     popupFullImageImage.src = this.src;
     popupFullImageTitle.textContent = this.alt;
+    popupFullImageImage.alt = this.alt;
   }
 
   _setEventListeners() {
@@ -26,9 +27,13 @@ export default class Card {
     this._image.addEventListener('click', this._handlePreviewPicture);
   }
 
-  getCard() {
+  _getTemplate() {
     this._template = document.querySelector(this._cardTemplateSelector).content;
-    this._view = this._template.cloneNode(true);
+    return this._template;
+  }
+
+  getCard() {
+    this._view = this._getTemplate().cloneNode(true);
     this._likeButton = this._view.querySelector('.grid-item__like');
     this._image = this._view.querySelector('.grid-item__photo');
     this._deleteIcon = this._view.querySelector('.grid-item__delete-icon');
@@ -39,4 +44,5 @@ export default class Card {
 
     return this._view;
     }
+    
   }
