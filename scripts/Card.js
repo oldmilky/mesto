@@ -28,12 +28,12 @@ export default class Card {
   }
 
   _getTemplate() {
-    this._template = document.querySelector(this._cardTemplateSelector).content;
+    this._template = document.querySelector(this._cardTemplateSelector).content.cloneNode(true);
     return this._template;
   }
 
   getCard() {
-    this._view = this._getTemplate().cloneNode(true);
+    this._view = this._getTemplate();
     this._likeButton = this._view.querySelector('.grid-item__like');
     this._image = this._view.querySelector('.grid-item__photo');
     this._deleteIcon = this._view.querySelector('.grid-item__delete-icon');
