@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link rel="stylesheet" href="./pages/index.css">
+  
   <title>Mesto</title>
 </head>
 <!-- Page -->
@@ -69,7 +69,7 @@
 <!-- Попап картинки -->
 <div class="popup popup_type_image">
   <div class="popup__wrap">
-    <img src="." alt="." class="popup__image">
+    <img class="popup__image">
     <p class="popup__title-image"></p>
     <button type="button" class="popup__button-close"></button>
   </div>
@@ -78,15 +78,13 @@
 <template id="grid-template">
   <li class="grid-item">
     <img src="./images/delete-icon.svg" alt="" class="grid-item__delete-icon">
-    <img src="." alt="." class="grid-item__photo">
+    <img class="grid-item__photo">
     <div class="grid-item__wrap">
       <h3 class="grid-item__name"></h3>
       <button type="button" class="grid-item__like"></button>
     </div>
   </li>
 </template>
-
-  <script src="./scripts/index.js" type="module"></script>
 
 </body>
 </html>

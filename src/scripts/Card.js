@@ -1,9 +1,10 @@
-import {openPopup, popupFullImage, popupFullImageImage, popupFullImageTitle} from './index.js';
+import {popupFullImage, popupFullImageImage, popupFullImageTitle} from './index.js';
 export default class Card {
-  constructor({name, link}, cardTemplateSelector) {
+  constructor({name, link}, cardTemplateSelector, handleCardClick) {
     this._text = name;
     this._link = link;
     this._cardTemplateSelector = cardTemplateSelector;
+    this._handleCardClick = handleCardClick;
   }
 
   _handleLikeIcon() {
@@ -15,7 +16,7 @@ export default class Card {
   }
 
   _handlePreviewPicture() {
-    openPopup(popupFullImage);
+    // openPopup(popupFullImage);
     popupFullImageImage.src = this.src;
     popupFullImageTitle.textContent = this.alt;
     popupFullImageImage.alt = this.alt;
@@ -24,7 +25,7 @@ export default class Card {
   _setEventListeners() {
     this._likeButton.addEventListener('click', this._handleLikeIcon);
     this._deleteIcon.addEventListener('click', this._handleDeleteCard);
-    this._image.addEventListener('click', this._handlePreviewPicture);
+    this._image.addEventListener('click', () => this._handleCardClick(this._text, this._link));
   }
 
   _getTemplate() {
