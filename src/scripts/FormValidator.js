@@ -48,7 +48,7 @@ _toggleButtonState(inputList, buttonElement) {
   }
 }
 
-//Функция для навешивания событий на все формы
+// Функция для навешивания событий на все формы
 _setEventListeners() {
   this._form.addEventListener('submit', (event) => {
     event.preventDefault();

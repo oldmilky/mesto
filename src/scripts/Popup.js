@@ -1,4 +1,3 @@
-import {escKeyCode} from './utils.js';
 class Popup {
     constructor(popupSelector, closeButtonSelector) {
         this._popup = document.querySelector(popupSelector);
@@ -9,7 +8,7 @@ class Popup {
     }
 
     _handlerEscClose(event) {
-        if(event.keyCode === escKeyCode) {
+        if(event.keyCode === 27) {
             this.close();
         }
     }

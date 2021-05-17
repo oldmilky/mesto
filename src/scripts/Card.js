@@ -1,4 +1,3 @@
-import {popupFullImage, popupFullImageImage, popupFullImageTitle} from './index.js';
 export default class Card {
   constructor({name, link}, cardTemplateSelector, handleCardClick) {
     this._text = name;
@@ -13,13 +12,6 @@ export default class Card {
 
   _handleDeleteCard() {
     this.closest('.grid-item').remove();
-  }
-
-  _handlePreviewPicture() {
-    // openPopup(popupFullImage);
-    popupFullImageImage.src = this.src;
-    popupFullImageTitle.textContent = this.alt;
-    popupFullImageImage.alt = this.alt;
   }
 
   _setEventListeners() {

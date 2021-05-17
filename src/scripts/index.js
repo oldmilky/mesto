@@ -37,12 +37,14 @@ import {
   popupEditCloseButtonSelector,
   popupAddOpenButton,
   popupAddSelector,
-  popupAddCloseButtonSelector
-} from '../scripts/utils.js';
+  popupAddCloseButtonSelector,
+  escKeyCode
+} from '../scripts/constants.js';
 import PopupWithForm from './PopupWithForm.js';
 import PopupWithImage from './PopupWithImage.js';
 import UserInfo from './UserInfo.js';
 import Section from './Section.js';
+import {initialCards} from './utils.js';
 
 // Открытие попапа редактирования профиля
 const userInfo = new UserInfo(profileSelectors);
@@ -54,50 +56,14 @@ popupEditOpenButton.addEventListener('click', function() {
 });
 
 // Обработчик формы / автоматическое заполнение формы
-const formSubmitHandler = (event) => {
-  event.preventDefault();
+const formSubmitHandler = (data) => {
   const info = {
-    name: nameInput.value,
-    profession: professionInput.value
+    name: data['name'],
+    profession: data['profession']
   }
   userInfo.setUserInfo(info);
   popupEditProfile.close();
 }
-
-// Генерация первых 6 карточек
-import libertyPark from '../images/liberty-park.jpg';
-import cityStreets from '../images/city-streets.jpg';
-import roads from '../images/roads.jpg';
-import newYork from '../images/new-york.jpg';
-import crimsonLight from '../images/crimson-light.jpg';
-import grayDays from '../images/gray-days.jpg';
-const initialCards = [
-    {
-      name: 'Liberty Park',
-      link: libertyPark
-    },
-    {
-      name: 'City Streets',
-      link: cityStreets
-    },
-    {
-      name: 'Extraordinary roads',
-      link: roads
-    },
-    {
-      name: 'New York',
-      link: newYork
-    },
-    {
-      name: 'Crimson Light',
-      link: crimsonLight
-    },
-    {
-      name: 'Gray Days',
-      link: grayDays
-    }
-  ];
-export {initialCards}
 
 // Открытие попапа добавление карточки
 popupAddOpenButton.addEventListener('click', function() {
@@ -105,34 +71,33 @@ popupAddOpenButton.addEventListener('click', function() {
 })
 
 // Обработчик добавления карточки
-const formSubmitAddHandler = (event) => {
-  event.preventDefault();
-  const card = new Card({name: titleCardInput.value, link: linkCardInput.value}, '#grid-template', handleCardClick)
+const formSubmitAddHandler = (data) => {
+  const card = new Card({name: data['title-card'], link: data['link-card']}, '#grid-template', handleCardClick)
   renderCard(card.getCard());
   popupAddCard.close();
-  popupAddForm.reset(); // очищение поля формы для след. добавления
   popupAddSaveButton.setAttribute('disabled', true);
   popupAddSaveButton.classList.add(settingsForm.inactiveButtonClass);
   }
 
-// Рендеринг
-  function renderCard(card) {
-    photoCard.prepend(card);
-  }
-  
-  function handleCardClick(name, link) {
-    popupWithImage.open(name, link);
-  }
+  // Рендеринг
+function renderCard(card) {
+  initialSection.addItem(card);
+}
 
-const generateInitialCards = (cards) => {
-  const initialSection = new Section({items: cards, 
+function handleCardClick(name, link) {
+  popupWithImage.open(name, link);
+}
+
+const createCard = (card) => {
+  return new Card(card, '#grid-template', handleCardClick)
+
+}
+  const initialSection = new Section({items: initialCards, 
   renderer: (item) => {
-    const card = new Card(item, '#grid-template', handleCardClick)
+    const card = createCard(item);
     initialSection.addItem(card.getCard());
   }}, photoCard)
   initialSection.renderItems();
-}
-generateInitialCards(initialCards);
 
 
 // Включаем валидацию формы редактрования профиля
