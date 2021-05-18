@@ -1,30 +1,15 @@
-import FormValidator from './FormValidator.js';
-import {settingsForm} from './settingsForm.js';
-import Card from './Card.js';
+import FormValidator from '../scripts/components/FormValidator.js';
+import {settingsForm} from '../scripts/utils/settingsForm.js';
+import Card from '../scripts/components/Card.js';
 import '../pages/index.css';
 import {
-  popupEditWrap,
-  popupButton,
-  popupButtonClose,
-  profileName,
-  profileJob,
   popupForm,
-  popupName,
-  popupJob,
-  popupEditSaveButton,
-  popupAdd,
-  popupAddButton,
-  popupAddButtonClose,
   popupAddForm,
   popupAddSaveButton,
   popupFullImage,
   popupFullImageImage,
   popupFullImageTitle,
-  popupFullImageClose,
-  titleCardInput,
-  linkCardInput,
   photoCard,
-  openedPopup,
   popupImageSelector,
   popupImageCloseButtonSelector,
   imageSelector,
@@ -38,13 +23,13 @@ import {
   popupAddOpenButton,
   popupAddSelector,
   popupAddCloseButtonSelector,
-  escKeyCode
-} from '../scripts/constants.js';
-import PopupWithForm from './PopupWithForm.js';
-import PopupWithImage from './PopupWithImage.js';
-import UserInfo from './UserInfo.js';
-import Section from './Section.js';
-import {initialCards} from './utils.js';
+  inputErrorSelector
+} from '../scripts/utils/constants.js';
+import PopupWithForm from '../scripts/components/PopupWithForm.js';
+import PopupWithImage from '../scripts/components/PopupWithImage.js';
+import UserInfo from '../scripts/components/UserInfo.js';
+import Section from '../scripts/components/Section.js';
+import {initialCards} from '../scripts/utils/utils.js';
 
 // Открытие попапа редактирования профиля
 const userInfo = new UserInfo(profileSelectors);
@@ -72,12 +57,17 @@ popupAddOpenButton.addEventListener('click', function() {
 
 // Обработчик добавления карточки
 const formSubmitAddHandler = (data) => {
-  const card = new Card({name: data['title-card'], link: data['link-card']}, '#grid-template', handleCardClick)
+  const dataCard = { 
+    name: data['title-card'],
+    link: data['link-card']
+  }
+  const card = createCard(dataCard)
   renderCard(card.getCard());
   popupAddCard.close();
-  popupAddSaveButton.setAttribute('disabled', true);
-  popupAddSaveButton.classList.add(settingsForm.inactiveButtonClass);
-  }
+  addFormValidator.resetForm();
+  // popupAddSaveButton.setAttribute('disabled', true);
+  // popupAddSaveButton.classList.add(settingsForm.inactiveButtonClass);
+}
 
   // Рендеринг
 function renderCard(card) {
@@ -101,11 +91,11 @@ const createCard = (card) => {
 
 
 // Включаем валидацию формы редактрования профиля
-const editFormValidator = new FormValidator(settingsForm, popupForm);
+const editFormValidator = new FormValidator(settingsForm, popupForm, inputErrorSelector);
 editFormValidator.enableValidation();
 
 // Включаем валидацию формы добавления карточки
-const addFormValidator = new FormValidator(settingsForm, popupAddForm);
+const addFormValidator = new FormValidator(settingsForm, popupAddForm, inputErrorSelector);
 addFormValidator.enableValidation();
 
 // Попап увеличения картинки

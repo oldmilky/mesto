@@ -49,6 +49,8 @@ const openedPopup = document.querySelector('.popup_opened');
 
 const escKeyCode = 27;
 
+const inputErrorSelector = '.popup__input-error';
+
 export {
     popupEditWrap,
     popupButton,
@@ -85,5 +87,6 @@ export {
     popupEditCloseButtonSelector,
     popupAddOpenButton,
     popupAddSelector,
-    popupAddCloseButtonSelector
+    popupAddCloseButtonSelector,
+    inputErrorSelector
 };

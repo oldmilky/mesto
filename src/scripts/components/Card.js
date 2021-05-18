@@ -11,7 +11,7 @@ export default class Card {
   }
 
   _handleDeleteCard() {
-    this.closest('.grid-item').remove();
+    this.closest('.grid-item').remove();  
   }
 
   _setEventListeners() {
