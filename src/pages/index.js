@@ -64,9 +64,7 @@ const formSubmitAddHandler = (data) => {
   const card = createCard(dataCard)
   renderCard(card.getCard());
   popupAddCard.close();
-  addFormValidator.resetForm();
-  // popupAddSaveButton.setAttribute('disabled', true);
-  // popupAddSaveButton.classList.add(settingsForm.inactiveButtonClass);
+  popupAddForm.reset();
 }
 
   // Рендеринг
