@@ -9,10 +9,3 @@
   transition: opacity 0.15s ease-in;
   flex: none;
 }
-.photo__like-button:hover {
-  opacity: 0.5;
-}
-.photo__like-button:focus {
-  outline: none;
-  opacity: 0.5;
-}

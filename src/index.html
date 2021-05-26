@@ -17,7 +17,10 @@
     <main class="content">
       <section class="profile">
         <div class="profile__container">
-          <img class="profile__avatar" src="./images/avatar.jpg" alt="Аватар">
+          <div class="profile__avatar-wrapp">
+            <img src="./images/avatar.png" alt="Аватар профиля" class="profile__avatar">
+            <img src="./images/editAvatar.svg" alt="Смена аватара" class="profile__avatar-edit">
+          </div>
           <div class="profile__info">
             <div class="profile__wrap">
               <h1 class="profile__name">Родион Стрелков</h1>
@@ -74,6 +77,28 @@
     <button type="button" class="popup__button-close"></button>
   </div>
 </div>
+<!-- Попап изменение аватара профиля -->
+<div class="popup popup_type_avatar">
+  <div class="popup__container">
+    <h4 class="popup__title">Обновить аватар</h4>
+    <form class="popup__form" name="editAvatar" novalidate>
+      <input type="url" placeholder="Ссылка на картинку" class="popup__input popup__input_name_link-avatar" name="avatar-input" id="avatar-input" required>
+      <span class='popup__input-error' id='avatar-input-error'>Заполните это поле.</span>
+      <input type="submit" class="popup__button-save" value="Сохранить" name="submit">
+    </form>
+    <button type="button" class="popup__button-close"></button>
+  </div>
+</div>
+<!-- Попап подтверждения -->
+<div class="popup popup_type_confirm">
+  <div class="popup__container">
+    <h4 class="popup__title">Вы уверены?</h4>
+    <form class="popup__form" name="confirm" novalidate>
+      <input type="submit" class="popup__button-save" value="Да" name="submit">
+    </form>
+    <button type="button" class="popup__button-close"></button>
+  </div>
+</div>  
 <!-- Template -->
 <template id="grid-template">
   <li class="grid-item">

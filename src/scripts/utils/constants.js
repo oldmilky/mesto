@@ -12,12 +12,21 @@ const popupEditSelector = '.popup_type_edit';
 const popupEditCloseButtonSelector = '.popup__button-close';
 const profileSelectors = {
     profileNameSelector: '.profile__name', 
-    profileProfessionSelector: '.profile__information'
+    profileProfessionSelector: '.profile__information',
+    profileAvatarSelector: '.popup_type_avatar'
   }
 const popupEditOpenButton = document.querySelector('.profile__edit-button');
 const nameInput = popupEditWrap.querySelector('.popup__input_name_name');
 const professionInput = popupEditWrap.querySelector('.popup__input_name_profession');
 
+// Переменные редактирования аватара
+const avatarImage = document.querySelector('.profile__avatar');
+const popupAvatar = document.querySelector('.popup_type_avatar');
+const popupAvatarButton = document.querySelector('.profile__avatar-wrapp');
+const popupAvatarForm = popupAvatar.querySelector('.popup__form');
+const popupAvatarInput = popupAvatar.querySelector('.popup__input_name_link-avatar');
+const popupAvatarSubmitButton = popupAvatar.querySelector('.popup__button-save');
+const popupAvatarCloseButton = '.popup__button-close';
 
 // Переменные добавляния карточки
 const popupAdd = document.querySelector('.popup_type_add');
@@ -28,6 +37,10 @@ const popupAddSaveButton = popupAdd.querySelector('.popup__button-save');
 const popupAddOpenButton = document.querySelector('.profile__add-button');
 const popupAddSelector = '.popup_type_add';
 const popupAddCloseButtonSelector = '.popup__button-close';
+
+// Попап подтверждения
+const popupConfirmSelector = '.popup_type_confirm';
+const popupDeleteIcon = document.querySelector('.grid-item__delete-icon');
 
 // Попап картинки при нажатии
 const popupFullImage = document.querySelector('.popup_type_image');
@@ -88,5 +101,14 @@ export {
     popupAddOpenButton,
     popupAddSelector,
     popupAddCloseButtonSelector,
-    inputErrorSelector
+    inputErrorSelector,
+    avatarImage,
+    popupAvatar,
+    popupAvatarButton,
+    popupAvatarForm,
+    popupAvatarInput,
+    popupAvatarSubmitButton,
+    popupAvatarCloseButton,
+    popupConfirmSelector,
+    popupDeleteIcon
 };
