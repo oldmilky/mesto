@@ -58,8 +58,11 @@ const formSubmitHandler = (data) => {
     name: data['name'],
     profession: data['profession']
   }
-  userInfo.setUserInfo(info);
-  popupEditProfile.close();
+  api.editUserInfo(info.name, info.profession)
+    .finally(() => {
+      userInfo.setUserInfo(info);
+      popupEditProfile.close();
+    })
 }
 
 // Открытие попапа добавление карточки
@@ -69,7 +72,7 @@ popupAddOpenButton.addEventListener('click', function() {
 
 // Обработчик добавления карточки
 const formSubmitAddHandler = (data) => {
-  const dataCard = { 
+  const dataCard = {
     name: data['title-card'],
     link: data['link-card']
   }
@@ -94,7 +97,7 @@ const formDeleteSubmitHandler = (evt, card) => {
 
 // Обработчик попапа изменение аватара
 const formEditAvatarSubmitHandler = (e) => {
-  e.preventDefault(); 
+  e.preventDefault();
   avatarImage.src = popupAvatarInput.value;
   popupEditAvatar.waitSubmitButton('Сохранение...');
   popupEditAvatar.close();
@@ -109,7 +112,7 @@ const api = new Api({
   }
 });
 
-  // Рендеринг
+// Рендеринг
 function renderCard(card) {
   initialSection.addItem(card);
 }
@@ -126,12 +129,12 @@ api.getInitialCards().then((cards) => {
   generateInitialCard(cards)
 })
 const generateInitialCard = (cards) => {
-  const initialSection = new Section({items: cards, 
+  const initialSection = new Section({items: cards,
     renderer: (item) => {
       const card = createCard(item);
       initialSection.addItem(card.getCard());
     }}, photoCard)
-    initialSection.renderItems();
+  initialSection.renderItems();
 }
 
 
@@ -163,7 +166,7 @@ const popupAddCard = new PopupWithForm(popupAddSelector, popupAddCloseButtonSele
 popupAddCard.setEventListeners();
 
 // Попап подтвеждения удаления
-const popupConfirm = new PopupWithSubmit(popupConfirmSelector, popupAddCloseButtonSelector, 
+const popupConfirm = new PopupWithSubmit(popupConfirmSelector, popupAddCloseButtonSelector,
   (evt, card) => {
     formDeleteSubmitHandler(evt, card)
   }
