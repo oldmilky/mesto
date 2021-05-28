@@ -38,6 +38,8 @@ const popupAddOpenButton = document.querySelector('.profile__add-button');
 const popupAddSelector = '.popup_type_add';
 const popupAddCloseButtonSelector = '.popup__button-close';
 
+
+
 // Попап подтверждения
 const popupConfirmSelector = '.popup_type_confirm';
 const popupDeleteIcon = document.querySelector('.grid-item__delete-icon');

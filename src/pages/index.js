@@ -40,7 +40,7 @@ import PopupWithForm from '../scripts/components/PopupWithForm.js';
 import PopupWithImage from '../scripts/components/PopupWithImage.js';
 import UserInfo from '../scripts/components/UserInfo.js';
 import Section from '../scripts/components/Section.js';
-import {initialCards} from '../scripts/utils/utils.js';
+// import {initialCards} from '../scripts/utils/utils.js';
 import PopupWithSubmit from '../scripts/components/PopupWithSubmit.js'
 
 // Открытие попапа редактирования профиля
@@ -87,11 +87,17 @@ popupAvatarButton.addEventListener('click', function() {
   popupEditAvatar.resetWaitSubmitButton();
 });
 
+const formDeleteSubmitHandler = (evt, card) => {
+  evt.preventDefault();
+  api.deleteCard()
+}
+
 // Обработчик попапа изменение аватара
 const formEditAvatarSubmitHandler = (e) => {
   e.preventDefault(); 
   avatarImage.src = popupAvatarInput.value;
   popupEditAvatar.waitSubmitButton('Сохранение...');
+  popupEditAvatar.close();
 }
 
 // Работа с API
@@ -116,12 +122,17 @@ const createCard = (card) => {
   return new Card(card, '#grid-template', handleCardClick)
 
 }
-  const initialSection = new Section({items: initialCards, 
-  renderer: (item) => {
-    const card = createCard(item);
-    initialSection.addItem(card.getCard());
-  }}, photoCard)
-  initialSection.renderItems();
+api.getInitialCards().then((cards) => {
+  generateInitialCard(cards)
+})
+const generateInitialCard = (cards) => {
+  const initialSection = new Section({items: cards, 
+    renderer: (item) => {
+      const card = createCard(item);
+      initialSection.addItem(card.getCard());
+    }}, photoCard)
+    initialSection.renderItems();
+}
 
 
 // Включаем валидацию формы редактрования профиля
@@ -129,7 +140,7 @@ const editFormValidator = new FormValidator(settingsForm, popupForm, inputErrorS
 editFormValidator.enableValidation();
 
 // Попап редактирования аватара
-const popupEditAvatar = new PopupWithForm(profileSelectors.profileAvatarSelector, popupAvatarCloseButton,
+const popupEditAvatar = new PopupWithSubmit(profileSelectors.profileAvatarSelector, popupAvatarCloseButton,
   formEditAvatarSubmitHandler);
 popupEditAvatar.setEventListeners();
 
