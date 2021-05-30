@@ -15,6 +15,7 @@ const profileSelectors = {
     profileProfessionSelector: '.profile__information',
     profileAvatarSelector: '.popup_type_avatar'
   }
+const userId = '2418718154fcc07d77175ad9'
 const popupEditOpenButton = document.querySelector('.profile__edit-button');
 const nameInput = popupEditWrap.querySelector('.popup__input_name_name');
 const professionInput = popupEditWrap.querySelector('.popup__input_name_profession');
@@ -37,8 +38,7 @@ const popupAddSaveButton = popupAdd.querySelector('.popup__button-save');
 const popupAddOpenButton = document.querySelector('.profile__add-button');
 const popupAddSelector = '.popup_type_add';
 const popupAddCloseButtonSelector = '.popup__button-close';
-
-
+const gridCardTemplateId = '#grid-template';
 
 // Попап подтверждения
 const popupConfirmSelector = '.popup_type_confirm';
@@ -112,5 +112,7 @@ export {
     popupAvatarSubmitButton,
     popupAvatarCloseButton,
     popupConfirmSelector,
-    popupDeleteIcon
+    popupDeleteIcon,
+    userId,
+    gridCardTemplateId
 };

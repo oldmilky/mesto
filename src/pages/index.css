@@ -26,6 +26,9 @@
 @import url('../blocks/grid-item/__like/grid-item__like.css');
 @import url('../blocks/grid-item/__like/_liked/grid-item__like_liked.css');
 @import url('../blocks/grid-item/__delete-icon/grid-item__delete-icon.css');
+@import url('../blocks/grid-item/__like-counter/grid-item__like-counter.css');
+@import url('../blocks/grid-item/__like-counter/__like-container/grid-item__like-container.css');
+@import url('../blocks/grid-item/__like-container/grid-item__like-container.css');
 /* Footer */
 @import url('../blocks/footer/footer.css');
 @import url('../blocks/footer/__text/footer__text.css');

@@ -5,6 +5,8 @@ export default class PopupWithForm extends Popup {
     super(popupSelector, closeButtonSelector,)
     this._submitHandler = submitHandler;
     this._popupForm = this._popup.querySelector('.popup__form');
+    this._popupSubmitButton = this._popupForm.querySelector('.popup__button-save');
+    this._defaultSubmitButtonText = this._popupSubmitButton.value;
   }
 
   _getInputValues() {
@@ -13,6 +15,14 @@ export default class PopupWithForm extends Popup {
       this._inputValues[item.name] = item.value;
     });
     return this._inputValues;
+  }
+
+  waitSubmitButton(waitingText) {
+    this._popupSubmitButton.value = waitingText;
+  }
+
+  resetWaitSubmitButton() {
+    this._popupSubmitButton.value = this._defaultSubmitButtonText;
   }
 
   setEventListeners() {

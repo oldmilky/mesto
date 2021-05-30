@@ -4,14 +4,28 @@ import Card from '../scripts/components/Card.js';
 import '../pages/index.css';
 import Api from '../scripts/components/Api.js';
 import {
+  popupEditWrap,
+  popupButton,
+  popupButtonClose,
+  profileName,
+  profileJob,
   popupForm,
+  popupName,
+  popupJob,
+  popupEditSaveButton,
+  popupAdd,
+  popupAddButton,
+  popupAddButtonClose,
   popupAddForm,
   popupAddSaveButton,
-  popupButtonClose,
   popupFullImage,
   popupFullImageImage,
   popupFullImageTitle,
+  popupFullImageClose,
+  titleCardInput,
+  linkCardInput,
   photoCard,
+  openedPopup,
   popupImageSelector,
   popupImageCloseButtonSelector,
   imageSelector,
@@ -34,7 +48,9 @@ import {
   popupAvatarSubmitButton,
   popupAvatarCloseButton,
   popupConfirmSelector,
-  popupDeleteIcon
+  popupDeleteIcon,
+  userId,
+  gridCardTemplateId
 } from '../scripts/utils/constants.js';
 import PopupWithForm from '../scripts/components/PopupWithForm.js';
 import PopupWithImage from '../scripts/components/PopupWithImage.js';
@@ -71,15 +87,36 @@ popupAddOpenButton.addEventListener('click', function() {
 })
 
 // Обработчик добавления карточки
-const formSubmitAddHandler = (data) => {
-  const dataCard = {
-    name: data['title-card'],
-    link: data['link-card']
-  }
-  const card = createCard(dataCard)
-  renderCard(card.getCard());
+const formSubmitAddHandler = (event) => {
+  // event.preventDefault();
+
+  const titleCard = titleCardInput.value;
+  const linkCard = linkCardInput.value;
+  api.addCard(titleCard, linkCard)
+    .then(dataCard=> {
+    const card = new Card (dataCard, userId, gridCardTemplateId,  
+      {
+        handleCardClick: (name, link) => {
+          popupWithImage.open(name, link);
+        },
+        likeCardHandler: () => {
+          const likedCard = card.likedCard();
+          const resultApi = likedCard ? api.unlikeCard(card.getIdCard()) : api.likeCard(card.getIdCard());
+    
+          resultApi.then(data => {
+              card.setLikes(data.likes) // Обновляем список лайкнувших карточку
+              card.renderLikes(); // Отрисовываем на клиенте
+            });
+        },
+        deleteCardHandler: () => {
+          popupConfirm.open(card);
+        }
+      }, dataCard._id);
+    const cardElement = card.generateCard();
+    photoCard.prepend(cardElement);
+  });
+  
   popupAddCard.close();
-  popupAddForm.reset();
 }
 
 // Открытие попапа подтверждение удаления карточки
@@ -96,11 +133,14 @@ const formDeleteSubmitHandler = (evt, card) => {
 }
 
 // Обработчик попапа изменение аватара
-const formEditAvatarSubmitHandler = (e) => {
-  e.preventDefault();
+const formEditAvatarSubmitHandler = (event) => {
+  event.preventDefault();
   avatarImage.src = popupAvatarInput.value;
   popupEditAvatar.waitSubmitButton('Сохранение...');
-  popupEditAvatar.close();
+  api.editUserAvatar(popupAvatarInput.value)
+    .finally(() => {
+      popupEditAvatar.close();
+    });
 }
 
 // Работа с API
@@ -112,30 +152,63 @@ const api = new Api({
   }
 });
 
-// Рендеринг
-function renderCard(card) {
-  initialSection.addItem(card);
-}
-
-function handleCardClick(name, link) {
-  popupWithImage.open(name, link);
-}
-
-const createCard = (card) => {
-  return new Card(card, '#grid-template', handleCardClick)
-
-}
-api.getInitialCards().then((cards) => {
-  generateInitialCard(cards)
-})
-const generateInitialCard = (cards) => {
-  const initialSection = new Section({items: cards,
+// Функция генерации изначальных карточек
+const generateInitialCards = (cards) => {
+  const defaultCardGrid = new Section({
+    items: cards,
     renderer: (item) => {
-      const card = createCard(item);
-      initialSection.addItem(card.getCard());
-    }}, photoCard)
-  initialSection.renderItems();
+      const card = new Card (item, userId, gridCardTemplateId, 
+        {
+          handleCardClick: (name, link) => {
+          popupWithImage.open(name, link);
+        },
+        likeCardHandler: () => {
+          const likedCard = card.likedCard();
+          const resultApi = likedCard ? api.unlikeCard(card.getIdCard()) : api.likeCard(card.getIdCard());
+
+          resultApi.then(data => {
+              card.setLikes(data.likes) // Обновляем список лайкнувших карточку
+              card.renderLikes(); // Отрисовываем на клиенте
+            });
+        },
+        deleteCardHandler: () => {
+          popupConfirm.open(card);
+        }
+      }, item._id);
+      const cardElement = card.generateCard();
+      defaultCardGrid.addItem(cardElement);
+    }
+  }, photoCard);
+  defaultCardGrid.renderItems();
 }
+
+api.getInitialCards().then((cards) => {
+  generateInitialCards(cards);
+  }
+);
+
+
+// !!! До этого была вот такая генерация: !!!
+
+// function handleCardClick(name, link) {
+//   popupWithImage.open(name, link);
+// }
+
+// const createCard = (card) => {
+//   return new Card(card, '#grid-template', handleCardClick)
+
+// }
+// api.getInitialCards().then((cards) => {
+//   generateInitialCard(cards)
+// })
+// const generateInitialCard = (cards) => {
+//   const initialSection = new Section({items: cards,
+//     renderer: (item) => {
+//       const card = createCard(item);
+//       initialSection.addItem(card.getCard());
+//     }}, photoCard)
+//   initialSection.renderItems();
+// }
 
 
 // Включаем валидацию формы редактрования профиля
