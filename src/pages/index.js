@@ -216,6 +216,27 @@ api.getInitialCards().then((cards) => {
 //   initialSection.renderItems();
 // }
 
+api.getUserInfo()
+  .then(user => {
+    const userName = user.name;
+    const userProfession = user.about;
+    userInfo.setUserInfo({
+      name: userName,
+      profession: userProfession
+    });
+    // console.log(userInfo.getUserInfo());
+  });
+
+api.getUserInfo()
+  .then(user => {
+    const userName = user.name;
+    const userProfession = user.about;
+    userInfo.setUserInfo({
+      name: userName,
+      profession: userProfession
+    });
+    avatarImage.src = user.avatar;
+  });
 
 // Включаем валидацию формы редактрования профиля
 const editFormValidator = new FormValidator(settingsForm, popupForm, inputErrorSelector);
