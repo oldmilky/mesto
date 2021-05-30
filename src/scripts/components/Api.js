@@ -4,7 +4,7 @@ export default class Api {
       this._headers = headers;
     }
   
-    // Получить начальные карточки
+    // Получение начальных карточек
     getInitialCards() {
       return fetch(`${this._baseUrl}/cards`, {headers: this._headers})
       .then(response => this._checkRequestResult(response))
@@ -25,7 +25,7 @@ export default class Api {
       .catch(error => this._errorHandler(error));
     }
   
-    // Удалить карточку
+    // Удаление карточки
     deleteCard(cardId) {
       return fetch(`${this._baseUrl}/cards/${cardId}`, {
         method: 'DELETE',

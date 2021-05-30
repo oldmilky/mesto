@@ -115,11 +115,8 @@ const formSubmitAddHandler = (event) => {
     const cardElement = card.generateCard();
     photoCard.prepend(cardElement);
   });
-  
   popupAddCard.close();
 }
-
-// Открытие попапа подтверждение удаления карточки
 
 // Открытие попапа изменение аватара
 popupAvatarButton.addEventListener('click', function() {
@@ -127,10 +124,19 @@ popupAvatarButton.addEventListener('click', function() {
   popupEditAvatar.resetWaitSubmitButton();
 });
 
-const formDeleteSubmitHandler = (evt, card) => {
-  evt.preventDefault();
-  api.deleteCard()
-}
+// Обработчик формы подтверждения удаления
+const formDeleteSubmitHandler = (event, card) => {
+  event.preventDefault();
+
+  popupConfirm.waitSubmitButton('Удаление...');
+  api.deleteCard(card.getIdCard())
+    .then(response => {
+      card.deleteCard();
+    }).finally(() => {
+      popupConfirm.close();
+      popupConfirm.resetWaitSubmitButton();
+    })  
+} 
 
 // Обработчик попапа изменение аватара
 const formEditAvatarSubmitHandler = (event) => {

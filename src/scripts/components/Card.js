@@ -55,14 +55,14 @@ export default class Card {
     return this._cardId;
   }
 
-  // Функция определяет "Есть ли в массиве лайкнувших такой юзер?""
+  // Функция определение лайка пользователя
   likedCard() {
     return this._countLikes.some(like => {
       return like._id === this._userId;
     });
   }
 
-  // Отрисовать лайки
+  // Отрисовка лайка
   renderLikes() {
     this._likes.textContent = this._countLikes.length;
     this.showLikes(this._userId)
@@ -77,7 +77,7 @@ export default class Card {
     }
   }
 
-  // Функция установки количества лайков !!!в свойства карточки!!!
+  // Функция установки количества лайков
   setLikes(listLikes) {
     this._countLikes = listLikes;
   }
