@@ -49,7 +49,7 @@ export default class Card {
   }
 
   // Функция определение лайка пользователя
-  likedCard() {
+  islikedCard() {
     return this._countLikes.some(like => {
       return like._id === this._userId;
     });
@@ -58,12 +58,12 @@ export default class Card {
   // Отрисовка лайка
   renderLikes() {
     this._likes.textContent = this._countLikes.length;
-    this.showLikes(this._userId)
+    this._showLikes(this._userId)
   }
 
   // Функция изменения вида лайка
-  showLikes() {
-    if (this.likedCard(this._userId)) {
+  _showLikes() {
+    if (this.islikedCard(this._userId)) {
       this._likeButton.classList.add('grid-item__like_liked');
     } else {
       this._likeButton.classList.remove('grid-item__like_liked');

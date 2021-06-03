@@ -8,7 +8,7 @@ export default class Api {
     getInitialCards() {
       return fetch(`${this._baseUrl}/cards`, {headers: this._headers})
       .then(response => this._checkRequestResult(response))
-      .catch(error => this._errorHandler(error));
+      // .catch(error => this._errorHandler(error));
     }
   
     // Добавление новой карточки на сервер
@@ -22,7 +22,7 @@ export default class Api {
         })
       })
       .then(response => this._checkRequestResult(response))
-      .catch(error => this._errorHandler(error));
+      // .catch(error => this._errorHandler(error));
     }
   
     // Удаление карточки
@@ -32,7 +32,7 @@ export default class Api {
         headers: this._headers,
       })
       .then(response => this._checkRequestResult(response))
-      .catch(error => this._errorHandler(error));
+      // .catch(error => this._errorHandler(error));
     }
   
     // Постановка лайка карточке
@@ -42,7 +42,7 @@ export default class Api {
         headers: this._headers,
       })
       .then(response => this._checkRequestResult(response))
-      .catch(error => this._errorHandler(error));
+      // .catch(error => this._errorHandler(error));
     }
   
     // Удаление лайка карточке
@@ -52,14 +52,14 @@ export default class Api {
         headers: this._headers,
       })
       .then(response => this._checkRequestResult(response))
-      .catch(error => this._errorHandler(error));
+      // .catch(error => this._errorHandler(error));
     }
     
     // Получить данные пользователя
     getUserInfo() {
       return fetch(`${this._baseUrl}/users/me`, {headers: this._headers})
       .then(response => this._checkRequestResult(response))
-      .catch(error => this._errorHandler(error));
+      // .catch(error => this._errorHandler(error));
     }
   
     // Отредактировать данные пользователя
@@ -73,7 +73,7 @@ export default class Api {
         })
       })
       .then(response => this._checkRequestResult(response))
-      .catch(error => this._errorHandler(error));
+      // .catch(error => this._errorHandler(error));
     }
   
     // Отредактировать аватар пользователя
@@ -87,7 +87,7 @@ export default class Api {
         })
       })
       .then(response => this._checkRequestResult(response))
-      .catch(error => this._errorHandler(error));
+      // .catch(error => this._errorHandler(error));
     }
   
     _checkRequestResult(response) {
