@@ -92,32 +92,13 @@ popupAddOpenButton.addEventListener('click', function() {
 
 // Обработчик добавления карточки
 const formAddSubmitHandler = (event) => {
-  // event.preventDefault();
-
   const titleCard = titleCardInput.value;
   const linkCard = linkCardInput.value;
   api.addCard(titleCard, linkCard)
   .catch(error => this._errorHandler(error))
     .then(dataCard=> {
-    const card = new Card (dataCard, userId, gridCardTemplateId,  
-      {
-        handleCardClick: (name, link) => {
-          popupWithImage.open(name, link);
-        },
-        likeCardHandler: () => {
-          const likedCard = card.islikedCard();
-          const resultApi = likedCard ? api.unlikeCard(card.getIdCard()) : api.likeCard(card.getIdCard())
-          .catch(error => this._errorHandler(error))
-          resultApi.then(data => {
-              card.setLikes(data.likes)
-              card.renderLikes();
-            });
-        },
-        deleteCardHandler: () => {
-          popupConfirm.open(card);
-        }
-      }, dataCard._id);
-    const cardElement = card.generateCard();
+      const card = createCard(dataCard);
+    cardsList.prependItem(card);
     card;
   });
   popupAddCard.close();
@@ -167,31 +148,35 @@ const api = new Api({
 
 let cardsList;
 
+function createCard(item) {
+  const card = new Card (item, userId, gridCardTemplateId, 
+    {
+      handleCardClick: (name, link) => {
+      popupWithImage.open(name, link);
+    },
+    likeCardHandler: () => {
+      const likedCard = card.islikedCard();
+      const resultApi = likedCard ? api.unlikeCard(card.getIdCard()) : api.likeCard(card.getIdCard());
+
+      resultApi.then(data => {
+          card.setLikes(data.likes)
+          card.renderLikes();
+        });
+    },
+    deleteCardHandler: () => {
+      popupConfirm.open(card);
+    }
+  }, item._id);
+  return card.generateCard();
+}
+
 // Функция генерации изначальных карточек
 const generateInitialCards = (cards) => {
   cardsList = new Section({
     items: cards,
     renderer: (item) => {
-      const card = new Card (item, userId, gridCardTemplateId, 
-        {
-          handleCardClick: (name, link) => {
-          popupWithImage.open(name, link);
-        },
-        likeCardHandler: () => {
-          const likedCard = card.islikedCard();
-          const resultApi = likedCard ? api.unlikeCard(card.getIdCard()) : api.likeCard(card.getIdCard());
-
-          resultApi.then(data => {
-              card.setLikes(data.likes)
-              card.renderLikes();
-            });
-        },
-        deleteCardHandler: () => {
-          popupConfirm.open(card);
-        }
-      }, item._id);
-      const cardElement = card.generateCard();
-      cardsList.addItem(cardElement);
+      const card = createCard(item);
+      cardsList.addItem(card);
     }
   }, photoCard);
   cardsList.renderItems();
@@ -199,8 +184,7 @@ const generateInitialCards = (cards) => {
 
 api.getInitialCards().then((cards) => {
   generateInitialCards(cards);
-  }
-);
+  }).catch(error => this._errorHandler(error));
 
 api.getUserInfo()
   .then(user => {
