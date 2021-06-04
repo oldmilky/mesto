@@ -31,6 +31,12 @@ class PopupWithSubmit extends Popup {
     this._setting = setting;
     super.open();
   }
+  
+  close() {
+    this._popupForm.reset()
+    super.close()
+  }
+  
 }
 
 export default PopupWithSubmit;

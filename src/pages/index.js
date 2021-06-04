@@ -128,13 +128,14 @@ const formDeleteSubmitHandler = (event, card) => {
 // Обработчик попапа изменение аватара
 const formEditAvatarSubmitHandler = (event) => {
   event.preventDefault();
-  avatarImage.src = popupAvatarInput.value;``
+  avatarImage.src = popupAvatarInput.value;
   popupEditAvatar.waitSubmitButton('Сохранение...');
   api.editUserAvatar(popupAvatarInput.value)
   .catch(error => this._errorHandler(error))
     .then(() => {
       popupEditAvatar.close();
     });
+  popupAvatarForm.reset();
 }
 
 // Работа с API
@@ -182,12 +183,7 @@ const generateInitialCards = (cards) => {
   cardsList.renderItems();
 }
 
-api.getInitialCards().then((cards) => {
-  generateInitialCards(cards);
-  }).catch(error => this._errorHandler(error));
-
-api.getUserInfo()
-  .then(user => {
+Promise.all([api.getUserInfo(), api.getInitialCards()]).then(([userInfo, cards]) => { generateInitialCards(cards), user => {
     const userName = user.name;
     const userProfession = user.about;
     userInfo.setUserInfo({
@@ -195,11 +191,15 @@ api.getUserInfo()
       profession: userProfession,
     });
     avatarImage.src = user.avatar;
-  });
+  }})
 
 // Включаем валидацию формы редактрования профиля
 const editFormValidator = new FormValidator(settingsForm, popupForm, inputErrorSelector);
 editFormValidator.enableValidation();
+
+// Включаем валидацию формы редактирования аватара
+const avatarFormValidator = new FormValidator(settingsForm, popupAvatarForm);
+avatarFormValidator.enableValidation();
 
 // Попап редактирования аватара
 const popupEditAvatar = new PopupWithSubmit(profileSelectors.profileAvatarSelector, popupAvatarCloseButton,
