@@ -99,7 +99,6 @@ const formAddSubmitHandler = (event) => {
     .then(dataCard=> {
       const card = createCard(dataCard);
     cardsList.prependItem(card);
-    card;
   });
   popupAddCard.close();
 }
@@ -183,15 +182,18 @@ const generateInitialCards = (cards) => {
   cardsList.renderItems();
 }
 
-Promise.all([api.getUserInfo(), api.getInitialCards()]).then(([userInfo, cards]) => { generateInitialCards(cards), user => {
-    const userName = user.name;
-    const userProfession = user.about;
+Promise.all([api.getUserInfo(), api.getInitialCards()])
+  .then(([userData, cards]) => {
+    generateInitialCards(cards)
+    const userName = userData.name;
+    const userProfession = userData.about;
     userInfo.setUserInfo({
       name: userName,
       profession: userProfession,
     });
-    avatarImage.src = user.avatar;
-  }})
+    userInfo.setUserAvatar(userData.avatar);
+    avatarImage.src = userData.avatar;
+  }).catch(error => this._errorHandler(error));
 
 // Включаем валидацию формы редактрования профиля
 const editFormValidator = new FormValidator(settingsForm, popupForm, inputErrorSelector);

@@ -13,7 +13,8 @@ const popupEditCloseButtonSelector = '.popup__button-close';
 const profileSelectors = {
     profileNameSelector: '.profile__name', 
     profileProfessionSelector: '.profile__information',
-    profileAvatarSelector: '.popup_type_avatar'
+    profileAvatarSelector: '.popup_type_avatar',
+    profileUserAvatarSelector: '.profile__avatar'
   }
 const userId = '2418718154fcc07d77175ad9'
 const popupEditOpenButton = document.querySelector('.profile__edit-button');
