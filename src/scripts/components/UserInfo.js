@@ -3,7 +3,7 @@ export default class UserInfo {
       this._userName = document.querySelector(profileNameSelector);
       this._userProfession = document.querySelector(profileProfessionSelector);
       this._userAvatarElement = document.querySelector(profileUserAvatarSelector);
-      this._userAvatar = this._userAvatarElement.src;
+      this._userAvatar = this._userAvatarElement;
     }
   
     getUserInfo() {
@@ -19,7 +19,7 @@ export default class UserInfo {
     setUserAvatar(avatar) {
       if(avatar) {
         this._avatar = avatar
-        this._userAvatar = avatar;
+        this._userAvatar.src = avatar;
       }
     }
   

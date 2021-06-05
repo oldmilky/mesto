@@ -1,8 +1,8 @@
 export default class FormValidator {
-  constructor(settings, form, inputErrorSelector) {
+  constructor(settings, form) {
     this._settings = settings;
     this._form = form;
-    this._inputErrorSelector = inputErrorSelector;
+    this._inputErrorSelector = settings.inputErrorSelector;
     this._buttonElement = this._form.querySelector(this._settings.submitButtonSelector);
   }
 // Показать ошибку

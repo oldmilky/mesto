@@ -81,7 +81,7 @@ const formEditSubmitHandler = (data) => {
     .then(() => {
       userInfo.setUserInfo(info);
       popupEditProfile.close();
-    })
+    }).catch(error => this.errorHandler(error))
 }
 
 // Открытие попапа добавление карточки
@@ -95,12 +95,11 @@ const formAddSubmitHandler = (event) => {
   const titleCard = titleCardInput.value;
   const linkCard = linkCardInput.value;
   api.addCard(titleCard, linkCard)
-  .catch(error => this._errorHandler(error))
     .then(dataCard=> {
       const card = createCard(dataCard);
     cardsList.prependItem(card);
-  });
-  popupAddCard.close();
+    popupAddCard.close();
+  }).catch(error => this.errorHandler(error));
 }
 
 // Открытие попапа изменение аватара
@@ -115,13 +114,12 @@ const formDeleteSubmitHandler = (event, card) => {
 
   popupConfirm.waitSubmitButton('Удаление...');
   api.deleteCard(card.getIdCard())
-  .catch(error => this._errorHandler(error))
     .then(response => {
       card.deleteCard();
     }).then(() => {
       popupConfirm.close();
       popupConfirm.resetWaitSubmitButton();
-    })  
+    }).catch(error => this.errorHandler(error))  
 } 
 
 // Обработчик попапа изменение аватара
@@ -130,11 +128,10 @@ const formEditAvatarSubmitHandler = (event) => {
   avatarImage.src = popupAvatarInput.value;
   popupEditAvatar.waitSubmitButton('Сохранение...');
   api.editUserAvatar(popupAvatarInput.value)
-  .catch(error => this._errorHandler(error))
     .then(() => {
       popupEditAvatar.close();
-    });
-  popupAvatarForm.reset();
+      popupAvatarForm.reset();
+    }).catch(error => this.errorHandler(error));
 }
 
 // Работа с API
@@ -161,7 +158,7 @@ function createCard(item) {
       resultApi.then(data => {
           card.setLikes(data.likes)
           card.renderLikes();
-        });
+        }).catch(error => this.errorHandler(error));
     },
     deleteCardHandler: () => {
       popupConfirm.open(card);
@@ -192,8 +189,7 @@ Promise.all([api.getUserInfo(), api.getInitialCards()])
       profession: userProfession,
     });
     userInfo.setUserAvatar(userData.avatar);
-    avatarImage.src = userData.avatar;
-  }).catch(error => this._errorHandler(error));
+  }).catch(error => this.errorHandler(error));
 
 // Включаем валидацию формы редактрования профиля
 const editFormValidator = new FormValidator(settingsForm, popupForm, inputErrorSelector);
