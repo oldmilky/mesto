@@ -31,4 +31,4 @@ const initialCards = [
       link: grayDays
     }
   ];
-export {initialCards}
+export {initialCards} 
